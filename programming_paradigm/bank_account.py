@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # programming_paradigm/bank_account.py
 # This script defines the BankAccount class.
 
@@ -62,7 +62,10 @@ class BankAccount:
     def display_balance(self):
         """
         Prints the current account balance in a user-friendly format.
+        
+        The balance is formatted to two decimal places for currency consistency.
         """
         # This method accesses the 'account_balance' attribute of the
-        # current object instance ('self').
-        print(f"Current Balance: ${self.account_balance}")
+        # current object instance ('self'). The :.2f ensures a
+        # two-decimal-place output.
+        print(f"Current Balance: ${self.account_balance:.2f}")
