@@ -1,39 +1,35 @@
 #!/usr/bin/env python3
 # File: robust_division_calculator.py
 
-def safe_divide(numerator, denominator):
+def safe_divide(numerator_str, denominator_str):
     """
-    Performs division with robust error handling for division by zero and
-    non-numeric inputs.
+    Safely divides two numbers provided as strings, handling various exceptions.
 
     Args:
-        numerator (str): The string value for the numerator.
-        denominator (str): The string value for the denominator.
+        numerator_str (str): The string representation of the numerator.
+        denominator_str (str): The string representation of the denominator.
 
     Returns:
-        str: A message indicating the result of the division or an error.
+        str: A string containing either the successful division result or an error message.
     """
     try:
-        # Attempt to convert inputs to float
-        num = float(numerator)
-        den = float(denominator)
-
-        # Perform the division
-        result = num / den
-        return f"The result of the division is {result}"
-    
-    except ZeroDivisionError:
-        # Catch and handle division by zero
-        return "Error: Cannot divide by zero."
+        # Convert the string arguments to floats.
+        numerator = float(numerator_str)
+        denominator = float(denominator_str)
+        
+        # Perform the division.
+        # This will raise a ZeroDivisionError if the denominator is 0.
+        result = numerator / denominator
+        
+        # If successful, return the result formatted to 2 decimal places.
+        return f"Result: {result:.2f}"
     
     except ValueError:
-        # Catch and handle non-numeric input
-        return "Error: Please enter numeric values only."
+        # This block is executed if `float()` fails to convert the input,
+        # meaning the input was not a valid number.
+        return "Error: Both inputs must be valid numbers."
+        
+    except ZeroDivisionError:
+        # This block is executed if division by zero occurs.
+        return "Error: Cannot divide by zero."
 
-
-# Example usage (for testing, not part of the command line interaction)
-if __name__ == "__main__":
-    print(safe_divide("10", "5"))   # Normal division
-    print(safe_divide("10", "0"))   # Division by zero
-    print(safe_divide("ten", "5"))  # Invalid input
-    print(safe_divide("10", "five")) # Another invalid input
