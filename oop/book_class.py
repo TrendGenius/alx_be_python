@@ -19,7 +19,6 @@ class Book:
         self.title = title   # Assigns the given title to this book object
         self.author = author # Assigns the given author to this book object
         self.year = year     # Assigns the given year to this book object
-        print(f"Book '{self.title}' created.") # A message to confirm creation (helpful for debugging)
 
     # This is the destructor method. It runs automatically when a Book object is deleted.
     # This line should be indented exactly 4 spaces from the 'class Book:' line.
