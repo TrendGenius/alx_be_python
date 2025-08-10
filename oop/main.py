@@ -1,29 +1,31 @@
-# main.py
+# main.py for Task 1
 
-# This line tells Python to find your 'book_class.py' file
-# and make the 'Book' class available in this script.
-from book_class import Book
+# Import all the necessary classes from library_system.py
+# This line tells Python to find your 'library_system.py' file and import these classes.
+from library_system import Book, EBook, PrintBook, Library
 
 # This is the main function where our test code will run.
 def main():
-    # Create a new Book object.
-    # When this line runs, it automatically calls the __init__ method in your Book class.
-    my_book = Book("1984", "George Orwell", 1949)
+    # Create an instance of our Library.
+    # This calls the Library class's __init__ method.
+    my_library = Library()
 
-    # Print the book object.
-    # When you 'print()' an object, Python looks for its __str__ method to get a user-friendly string.
-    print(my_book)
+    # Create instances of each type of book.
+    # These lines call the __init__ of the respective Book, EBook, and PrintBook classes.
+    classic_book = Book("Pride and Prejudice", "Jane Austen")
+    digital_novel = EBook("Snow Crash", "Neal Stephenson", 500) # This is an EBook with a file_size
+    paper_novel = PrintBook("The Catcher in the Rye", "J.D. Salinger", 234) # This is a PrintBook with a page_count
 
-    # Get the official representation of the book object.
-    # The 'repr()' function specifically calls the __repr__ method.
-    print(repr(my_book))
+    # Add these books to the library's collection using the add_book method.
+    my_library.add_book(classic_book)
+    my_library.add_book(digital_novel)
+    my_library.add_book(paper_novel)
 
-    # Delete the reference to the book object.
-    # When the last reference is gone, Python's garbage collector will eventually
-    # clean up the object and call its __del__ method.
-    del my_book
+    # Ask the library to list all the books it contains.
+    # This will call the list_books method in the Library class.
+    my_library.list_books()
 
 # This special Python construct makes sure the 'main()' function is called
-# only when this script is run directly (not when it's imported as a module).
+# only when this script is run directly.
 if __name__ == "__main__":
     main()
