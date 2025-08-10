@@ -1,28 +1,22 @@
-# main.py for Task 2
+# main.py for Task 3
 
-# Import the necessary classes from polymorphism_demo.py
-# We also import 'math' because Circle uses math.pi
-from polymorphism_demo import Shape, Rectangle, Circle
-import math # Make sure math is imported if it's not already in polymorphism_demo.py (it is)
+# Import the Calculator class from class_static_methods_demo.py
+from class_static_methods_demo import Calculator
 
 # This is the main function where our test code will run.
 def main():
-    # Create a list of different shape objects.
-    # Even though they are different types (Rectangle, Circle),
-    # they are treated polymorphically as 'Shape' objects because they all have an 'area()' method.
-    shapes = [
-        Rectangle(10, 5), # A Rectangle instance
-        Circle(7)         # A Circle instance
-    ]
+    # --- Using the static method ---
+    # Static methods are called directly on the class name.
+    # They do not require an object instance to be created.
+    sum_result = Calculator.add(10, 5)
+    print(f"The sum is: {sum_result}")
+    # --- Using the class method ---
+    # Class methods are also called directly on the class name.
+    # They receive the class itself ('Calculator' in this case) as their first argument ('cls').
+    product_result = Calculator.multiply(10, 5)
+    print(f"The product is: {product_result}")
 
-    # Loop through each shape in the list.
-    # The 'area()' method will be called, and Python will automatically
-    # execute the correct 'area()' method based on the object's actual type.
-    for shape in shapes:
-        # shape.__class__.__name__ gets the name of the object's class (e.g., 'Rectangle' or 'Circle')
-        print(f"The area of the {shape.__class__.__name__} is: {shape.area()}")
-
-# This standard Python line makes sure main() runs when the script is executed.
+# This standard Python line makes sure main() runs when the script is executed directly.
 if __name__ == "__main__":
     main()
 
