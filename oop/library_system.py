@@ -1,10 +1,11 @@
 # library_system.py
-
+# This file defines the classes for the library system: Book, EBook, PrintBook, and Library.
 # --- Base Class: Book ---
-# This is the most general type of book. All other specific book types will be based on this.
+# This is the foundational class for any book, holding common attributes.
 class Book:
     """
-    Base class for all books. Contains attributes common to all book types.
+    Base class for all books in the library system.
+    Contains attributes common to all book types like title and author.
     """
     def __init__(self, title, author):
         """
@@ -17,9 +18,15 @@ class Book:
         self.title = title
         self.author = author
 
+    def __str__(self):
+        """
+        Returns a user-friendly string representation of the Book object.
+        This is what gets printed when you use `print(book_object)`.
+        """
+        return f"{self.title} by {self.author}"
+
 # --- Derived Class (Inheritance): EBook ---
-# EBook is a 'Book' but with an extra attribute: file_size.
-# The '(Book)' means EBook inherits from the Book class.
+# EBook inherits from Book, adding specific attributes for electronic books.
 class EBook(Book):
     """
     Represents an electronic book, inheriting from the base Book class.
@@ -34,14 +41,13 @@ class EBook(Book):
             author (str): The author of the e-book.
             file_size (int): The file size of the e-book in KB.
         """
-        # Call the constructor of the parent class (Book).
-        # This ensures 'title' and 'author' are set up by the Book's __init__ method.
+        # Call the constructor of the parent class (Book) using super().
+        # This properly initializes the 'title' and 'author' attributes.
         super().__init__(title, author)
         self.file_size = file_size # EBook's unique attribute
 
 # --- Derived Class (Inheritance): PrintBook ---
-# PrintBook is also a 'Book' but with an extra attribute: page_count.
-# The '(Book)' means PrintBook also inherits from the Book class.
+# PrintBook also inherits from Book, adding attributes unique to physical books.
 class PrintBook(Book):
     """
     Represents a physical print book, inheriting from the base Book class.
@@ -61,17 +67,17 @@ class PrintBook(Book):
         self.page_count = page_count # PrintBook's unique attribute
 
 # --- Composition Class: Library ---
-# A Library is not a type of Book; instead, it *contains* (is composed of) Books.
+# The Library class 'has' (is composed of) different types of book objects.
 class Library:
     """
     Represents a library that manages a collection of various book types.
-    Demonstrates composition (a Library 'has-a' list of books).
+    Demonstrates composition by containing book objects within a list.
     """
     def __init__(self):
         """
         Initializes a new Library instance with an empty list to store books.
         """
-        self.books = [] # This list will hold instances of Book, EBook, and PrintBook
+        self.books = [] # This list stores instances of Book, EBook, and PrintBook
 
     def add_book(self, book):
         """
@@ -86,7 +92,7 @@ class Library:
     def list_books(self):
         """
         Prints details of each book currently in the library.
-        It uses 'isinstance' to check the specific type of book and print relevant details.
+        It uses 'isinstance' to identify the specific type of book for detailed output.
         """
         print("\n--- Books in the Library ---")
         if not self.books: # Check if the library is empty
@@ -94,12 +100,15 @@ class Library:
             return
 
         for book in self.books:
-            # Check the actual type of the 'book' object to print its specific details
+            # Check the actual type of the 'book' object using isinstance()
+            # Now, we can also leverage the __str__ method of the Book (or its child classes)
             if isinstance(book, EBook):
-                print(f"EBook: {book.title} by {book.author}, File Size: {book.file_size}KB")
+                # For EBook, we combine its __str__ output (from Book) with its unique attribute
+                print(f"{book.__str__()}, File Size: {book.file_size}KB")
             elif isinstance(book, PrintBook):
-                print(f"PrintBook: {book.title} by {book.author}, Page Count: {book.page_count}")
-            elif isinstance(book, Book): # This catches any general Book objects (or acts as a fallback)
-                print(f"Book: {book.title} by {book.author}")
+                # For PrintBook, same thing, combine its __str__ with its unique attribute
+                print(f"{book.__str__()}, Page Count: {book.page_count}")
+            elif isinstance(book, Book): # Catches general Book objects
+                print(f"Book: {book.__str__()}") # Explicitly use Book's __str__
             else:
-                print(f"Unknown item in library: {book}") # For any unexpected object type
+                print(f"Unknown item in library: {book}") # For unexpected object types
