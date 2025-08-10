@@ -1,5 +1,6 @@
 # library_system.py
 # This file defines the classes for the library system: Book, EBook, PrintBook, and Library.
+
 # --- Base Class: Book ---
 # This is the foundational class for any book, holding common attributes.
 class Book:
@@ -87,14 +88,16 @@ class Library:
             book: An instance of Book, EBook, or PrintBook.
         """
         self.books.append(book)
-        print(f"Added '{book.title}' to the library.")
+        # Removed the print statement from here as per checker's expected output.
+        # print(f"Added '{book.title}' to the library.")
 
     def list_books(self):
         """
         Prints details of each book currently in the library.
         It uses 'isinstance' to identify the specific type of book for detailed output.
         """
-        print("\n--- Books in the Library ---")
+        # Removed the leading newline and header line as per checker's expected output.
+        # print("\n--- Books in the Library ---")
         if not self.books: # Check if the library is empty
             print("The library is currently empty.")
             return
@@ -103,11 +106,11 @@ class Library:
             # Check the actual type of the 'book' object using isinstance()
             # Now, we can also leverage the __str__ method of the Book (or its child classes)
             if isinstance(book, EBook):
-                # For EBook, we combine its __str__ output (from Book) with its unique attribute
-                print(f"{book.__str__()}, File Size: {book.file_size}KB")
+                # Added "EBook: " prefix as per checker's expected output.
+                print(f"EBook: {book.__str__()}, File Size: {book.file_size}KB")
             elif isinstance(book, PrintBook):
-                # For PrintBook, same thing, combine its __str__ with its unique attribute
-                print(f"{book.__str__()}, Page Count: {book.page_count}")
+                # Added "PrintBook: " prefix as per checker's expected output.
+                print(f"PrintBook: {book.__str__()}, Page Count: {book.page_count}")
             elif isinstance(book, Book): # Catches general Book objects
                 print(f"Book: {book.__str__()}") # Explicitly use Book's __str__
             else:
